@@ -57,6 +57,7 @@ body {
   box-shadow: 2px 2px 5px whitesmoke;
   position: sticky;
   top: 0;
+  z-index: 2;
 }
 
 .add-new-content {
@@ -78,28 +79,45 @@ body {
 }
 
 button:hover {
-  background-color: rgb(8, 5, 5);
+  background-color: rgb(105, 23, 23);
+  color: whitesmoke;
+  cursor: pointer;
 }
 
 /* dialog box container */
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+dialog {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
 #dialog {
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
   padding: 20px;
   background-color: black;
   color: whitesmoke;
   gap: 20px;
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
 }
 
 .close-icon {
   display: flex;
   justify-content: end;
+  font-size: 30px;
+  transition: transform 0.5s ease-in-out;
 }
+
+.close-button:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -117,8 +135,73 @@ form {
   padding: 5px;
 }
 
-@media only screen and (min-width: 425px) {
+.add-button-container {
+  display: flex;
+  justify-content: center;
+  font-size: 24px;
+  border-radius: 5px;
+}
+
+.include-button {
+  padding: 10px;
+  border-radius: 20px;
+  width: 150px;
+  background-color: whitesmoke;
+  color: black;
+  font-weight: bold;
+}
+
+.books-list-container {
+  margin: 20px auto;
+  width: 60%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  color: whitesmoke;
+  font-size: 20px;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.read-status-container {
+  background-color: gray;
+  width: 30%;
+  padding: 5px;
+  border-radius: 5px;
+  margin: 0 auto;
+  transition: transform 0.2s ease-in;
+}
+
+.read-status-container:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.delete-button-container {
+  display: flex;
+  justify-content: end;
+  transition: transform 0.2s ease-in;
+  transform-origin: right;
+}
+
+.delete-button-container:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
+@media only screen and (min-width: 500px) {
   #dialog {
     width: 400px;
+  }
+
+  dialog {
+    top: 10%;
   }
 }
