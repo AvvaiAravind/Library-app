@@ -1,10 +1,7 @@
 const dialog = document.querySelector("dialog");
 const addBtn = document.querySelector(".add-button");
-const closeBtn = document.querySelector(".close-button");
-const readStatuses = document.querySelectorAll(".read-status-container");
-console.log(readStatuses);
-const deleteBtns = document.querySelectorAll(".delete-button");
 const includeBtn = document.querySelector(".include-button");
+const closeBtn = document.querySelector(".close-button");
 const form = document.querySelector("form");
 const booksContainer = document.querySelector(".books-list-container");
 let idCounter = 0;
@@ -15,28 +12,13 @@ addBtn.addEventListener("click", () => {
   dialog.showModal();
 });
 
-closeBtn.addEventListener("click", () => {
-  dialog.close();
-});
-
-readStatuses.forEach((readstatus) => {
-  readstatus.addEventListener("click", (e) => {
-    const p = readstatus.querySelector("p");
-    console.log(p.textContent);
-    p.textContent = p.textContent === "Read" ? "Not Read" : "Read";
-  });
-});
-
-deleteBtns.forEach((deletebtn) => {
-  deletebtn.addEventListener("click", () => {
-    const card = deletebtn.parentElement.parentElement;
-    card.remove();
-  });
-});
-
 includeBtn.addEventListener("click", (e) => {
   e.preventDefault();
   addBookToLibrary();
+});
+
+closeBtn.addEventListener("click", () => {
+  dialog.close();
 });
 
 function addBookToLibrary() {
@@ -44,23 +26,22 @@ function addBookToLibrary() {
   const author = document.querySelector("#author-name").value;
   const pages = document.querySelector("#pages").value;
   const readStatus = document.querySelector("#read-status").value;
-  console.log(readStatus);
+
   if (form.checkValidity()) {
     const idCounter = new Book(title, author, pages, readStatus);
-    console.log(idCounter);
+
     myLibrary.push(idCounter);
     createCard();
     dialog.close();
   } else {
     form.reportValidity();
   }
-  console.log(myLibrary);
 }
 
 function createCard() {
   const div = document.createElement("div");
   div.className = "card";
-  console.log(div);
+
   booksContainer.appendChild(div);
   for (let i = 0; i < 3; i++) {
     const p = document.createElement("p");
@@ -81,10 +62,28 @@ function createCard() {
   div1.className = "read-status-container";
   div.appendChild(div1);
   const p = document.createElement("p");
+  p.className = "read-status";
   p.textContent = `${myLibrary[cardCounter].readStatus}`;
   div1.appendChild(p);
-
+  const div2 = document.createElement("div");
+  div2.className = "delete-button-container";
+  div.appendChild(div2);
+  const deleteBtn = document.createElement("i");
+  deleteBtn.classList.add("fa-solid", "fa-trash", "delete-button");
+  div2.appendChild(deleteBtn);
   cardCounter++;
+
+  div1.addEventListener("click", () => {
+    p.textContent = p.textContent === "Read" ? "Not Read" : "Read";
+  });
+
+  // delete btn
+
+  deleteBtn.addEventListener("click", (e) => {
+    console.log(e.target.parentElement.parentElement);
+    const card = e.target.parentElement.parentElement;
+    card.remove();
+  });
 }
 
 function Book(title, author, pages, readStatus) {
