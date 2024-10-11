@@ -86,7 +86,7 @@ function createCard() {
   });
 }
 
-function Book(title, author, pages, readStatus) {
+/* function Book(title, author, pages, readStatus) {
   idCounter++;
   this.title = title;
   this.author = author;
@@ -98,4 +98,20 @@ Book.prototype.info = function () {
   let readMessage =
     this.readStatus === "Read" ? "already read" : "not read yet";
   return `${this.title} by ${this.author}, ${this.pages}, ${readMessage}`;
-};
+}; */
+
+class Book {
+  static idCounter = idCounter;
+  constructor(title, author, pages, readStatus) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.readStatus = readStatus;
+    this.id = Book.idCounter++;
+  }
+  info() {
+    let readMessage =
+      this.readStatus === "Read" ? "already read" : "not read yet";
+    return `${this.title} by ${this.author}, ${this.pages}, ${readMessage}`;
+  }
+}
